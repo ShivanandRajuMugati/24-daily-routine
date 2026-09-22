@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>24-Hour Routine</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =========================
+         SETUP SCREEN
+    ========================== -->
+
+    <section id="setupScreen" class="screen">
+
+        <div class="logo">🕐</div>
+
+        <h1>24-Hour Routine</h1>
+
+        <p class="subtitle">
+            Understand how you spend your 24 hours.
+        </p>
+
+
+        <!-- NAME -->
+
+        <div id="nameStep" class="card">
+
+            <h2>Welcome 👋</h2>
+
+            <p>
+                Let's make your 21-day routine better.
+            </p>
+
+            <label>What's your name?</label>
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Enter your name"
+            >
+
+            <button id="nameNextButton">
+                Continue →
+            </button>
+
+        </div>
+
+
+        <!-- ACTIVITY SETUP -->
+
+        <div id="activityStep" class="hidden">
+
+            <div class="card">
+
+                <h2>🟢 Regular Day Activities</h2>
+
+                <p>
+                    Select the activities you want to track on Regular Days.
+                </p>
+
+                <div id="regularActivityOptions"></div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>🏖️ Holiday Activities</h2>
+
+                <p>
+                    Select the activities you want to track on Holidays.
+                </p>
+
+                <div id="holidayActivityOptions"></div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>➕ Add Your Own Activity</h2>
+
+                <input
+                    type="text"
+                    id="customActivityInput"
+                    placeholder="Example: Reading"
+                >
+
+                <button id="addCustomActivityButton">
+                    Add Activity
+                </button>
+
+                <div id="customActivities"></div>
+
+            </div>
+
+
+            <button
+                id="startChallengeButton"
+                class="primary"
+            >
+                🚀 Start 21-Day Challenge
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN APP
+    ========================== -->
+
+    <section id="mainApp" class="hidden">
+
+        <!-- TODAY -->
+
+        <div id="todayPage" class="page">
+
+            <div class="top-header">
+
+                <div>
+                    <h1>Today</h1>
+
+                    <p id="todayDate"></p>
+
+                    <span
+                        id="dayTypeBadge"
+                        class="badge regular"
+                    >
+                        🟢 Regular Day
+                    </span>
+                </div>
+
+                <div class="challenge-number">
+                    <strong id="challengeDay">
+                        Day 1 / 21
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="welcome-card">
+
+                <h2 id="todayGreeting">
+                    Hello 👋
+                </h2>
+
+                <p>
+                    Let's make today count.
+                </p>
+
+            </div>
+
+
+            <!-- STATS -->
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <span>🔥</span>
+
+                    <strong id="streakValue">
+                        0
+                    </strong>
+
+                    <small>Day Streak</small>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span>📅</span>
+
+                    <strong id="completedDays">
+                        0/21
+                    </strong>
+
+                    <small>Completed</small>
+
+                </div>
+
+            </div>
+
+
+            <!-- 24 HOURS -->
+
+            <div class="card">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>⏱️ 24-Hour Balance</h2>
+
+                        <p id="balanceMessage">
+                            Enter your time below.
+                        </p>
+
+                    </div>
+
+                    <strong id="remainingTime">
+                        24h 00m
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-container">
+
+                    <div
+                        id="timeProgress"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+
+                <div class="balance-row">
+
+                    <span>
+                        Used:
+                        <strong id="usedTime">
+                            0h 00m
+                        </strong>
+                    </span>
+
+                    <span>
+                        Remaining:
+                        <strong id="remainingTimeSmall">
+                            24h 00m
+                        </strong>
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="timeWarning"
+                    class="warning hidden"
+                ></div>
+
+            </div>
+
+
+            <!-- ACTIVITIES -->
+
+            <div class="card">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2>Today's Activities</h2>
+
+                        <p>
+                            How much time did you spend?
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div id="todayActivities"></div>
+
+
+                <button
+                    id="addTodayActivityButton"
+                    class="secondary"
+                >
+                    ➕ Add Activity
+                </button>
+
+            </div>
+
+
+            <!-- APPROXIMATE TIME -->
+
+            <div class="info-box">
+
+                <strong>≈ Don't know the exact time?</strong>
+
+                <p>
+                    You can use an approximate time.
+                    It will be marked as approximate.
+                </p>
+
+            </div>
+
+
+            <!-- NOTE -->
+
+            <div class="card">
+
+                <h2>📝 How was your day?</h2>
+
+                <textarea
+                    id="todayNote"
+                    rows="4"
+                    placeholder="Write something about your day..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- RATING -->
+
+            <div class="card rating">
+
+                <h2>
+                    ⭐ How satisfied are you with today?
+                </h2>
+
+                <div id="ratingStars">
+
+                    <button data-rating="1">★</button>
+                    <button data-rating="2">★</button>
+                    <button data-rating="3">★</button>
+                    <button data-rating="4">★</button>
+                    <button data-rating="5">★</button>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="saveDayButton"
+                class="primary"
+            >
+                💾 Save Today's Routine
+            </button>
+
+        </div>
+
+
+        <!-- CALENDAR -->
+
+        <div id="calendarPage" class="page hidden">
+
+            <h1>📅 Calendar</h1>
+
+            <p class="page-description">
+                Your 21-day challenge calendar.
+            </p>
+
+            <div class="card">
+
+                <div id="calendarGrid"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div id="progressPage" class="page hidden">
+
+            <h1>📊 Progress</h1>
+
+            <p class="page-description">
+                See how your routine is changing.
+            </p>
+
+
+            <div class="card">
+
+                <h2>21-Day Summary</h2>
+
+                <div id="progressSummary"></div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>Week 1 vs Week 3</h2>
+
+                <div id="comparison"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SETTINGS -->
+
+        <div id="settingsPage" class="page hidden">
+
+            <h1>⚙️ Settings</h1>
+
+            <div class="card">
+
+                <h2>Your Name</h2>
+
+                <input
+                    id="settingsName"
+                    type="text"
+                >
+
+                <button
+                    id="saveNameButton"
+                    class="secondary"
+                >
+                    Save Name
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>Challenge Information</h2>
+
+                <p id="challengeInfo"></p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>🗓️ Weekly Holidays</h2>
+
+                <p>
+                    Sunday is automatically a Holiday.
+                    You can add other holidays for the current week.
+                </p>
+
+                <div id="holidaySettings"></div>
+
+                <button
+                    id="saveHolidaysButton"
+                    class="secondary"
+                >
+                    Save Holiday Settings
+                </button>
+
+            </div>
+
+
+            <div class="card danger-card">
+
+                <h2>Reset Everything</h2>
+
+                <p>
+                    This will delete your name, activities,
+                    challenge and saved routine data.
+                </p>
+
+                <button
+                    id="resetButton"
+                    class="danger"
+                >
+                    Reset All Data
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="bottom-nav">
+
+            <button
+                data-page="todayPage"
+                class="nav-button active"
+            >
+                🏠
+                <span>Today</span>
+            </button>
+
+            <button
+                data-page="calendarPage"
+                class="nav-button"
+            >
+                📅
+                <span>Calendar</span>
+            </button>
+
+            <button
+                data-page="progressPage"
+                class="nav-button"
+            >
+                📊
+                <span>Progress</span>
+            </button>
+
+            <button
+                data-page="settingsPage"
+                class="nav-button"
+            >
+                ⚙️
+                <span>Settings</span>
+            </button>
+
+        </nav>
+
+    </section>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
